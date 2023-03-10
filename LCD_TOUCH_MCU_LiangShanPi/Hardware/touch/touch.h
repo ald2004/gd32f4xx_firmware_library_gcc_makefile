@@ -21,13 +21,13 @@
 #define SDA_OFF			gpio_bit_reset(SDA_PORT,SDA_PIN)
 #define SDA_TOGGLE		gpio_bit_toggle(SDA_PORT,SDA_PIN)
 
-//IO·½ÏòÉèÖÃ
-#define CT_SDA_IN()  gpio_mode_set(SCL_PORT, GPIO_MODE_INPUT, GPIO_PUPD_PULLUP,SDA_PIN);//{GPIOF->MODER&=~(3<<(2*11));GPIOF->MODER|=0<<2*11;}	//PF11ÊäÈëÄ£Ê½
-#define CT_SDA_OUT() gpio_mode_set(SCL_PORT, GPIO_MODE_OUTPUT, GPIO_PUPD_PULLUP,SDA_PIN);//{GPIOF->MODER&=~(3<<(2*11));GPIOF->MODER|=1<<2*11;} 	//PF11Êä³öÄ£Ê½
-//IO²Ù×÷º¯Êý	 
+//IOæ–¹å‘è®¾ç½®
+#define CT_SDA_IN()  gpio_mode_set(SCL_PORT, GPIO_MODE_INPUT, GPIO_PUPD_PULLUP,SDA_PIN);//{GPIOF->MODER&=~(3<<(2*11));GPIOF->MODER|=0<<2*11;}	//PF11è¾“å…¥æ¨¡å¼
+#define CT_SDA_OUT() gpio_mode_set(SCL_PORT, GPIO_MODE_OUTPUT, GPIO_PUPD_PULLUP,SDA_PIN);//{GPIOF->MODER&=~(3<<(2*11));GPIOF->MODER|=1<<2*11;} 	//PF11è¾“å‡ºæ¨¡å¼
+//IOæ“ä½œå‡½æ•°	 
 #define CT_IIC_SCL    //PBout(0) 	//SCL
 #define CT_IIC_SDA(val)    ((val)==1?SDA_ON:SDA_OFF)//PFout(11) //SDA	 
-#define CT_READ_SDA   gpio_input_bit_get(SDA_PORT,SDA_PIN) //PFin(11)  //ÊäÈëSDA 
+#define CT_READ_SDA   gpio_input_bit_get(SDA_PORT,SDA_PIN) //PFin(11)  //è¾“å…¥SDA 
  
 #define RST_RCU             RCU_GPIOD
 #define RST_PORT            GPIOD
@@ -43,53 +43,53 @@
 #define INT_OFF			    gpio_bit_reset(INT_PORT,INT_PIN);
 #define INT_TOGGLE	        gpio_bit_toggle(INT_PORT,INT_PIN);
    
-//I2C¶ÁÐ´ÃüÁî	
-#define GT_CMD_WR 		0X28    	//Ð´ÃüÁî
-#define GT_CMD_RD 		0X29		//¶ÁÃüÁî
+//I2Cè¯»å†™å‘½ä»¤	
+#define GT_CMD_WR 		0X28    	//å†™å‘½ä»¤
+#define GT_CMD_RD 		0X29		//è¯»å‘½ä»¤
   
-//GT1151 ²¿·Ö¼Ä´æÆ÷¶¨Òå 
-#define GT_CTRL_REG 	0X8040   	//GT1151¿ØÖÆ¼Ä´æÆ÷
-#define GT_CFGS_REG 	0X8050   	//GT1151µØÖ·¼Ä´æÆ÷
-#define GT_CHECK_REG 	0X813C   	//GT1151ÑéºÍ¼Ä´æÆ÷
-#define GT_PID_REG 		0X8140   	//GT1151²úÆ·ID¼Ä´æÆ÷
+//GT1151 éƒ¨åˆ†å¯„å­˜å™¨å®šä¹‰ 
+#define GT_CTRL_REG 	0X8040   	//GT1151æŽ§åˆ¶å¯„å­˜å™¨
+#define GT_CFGS_REG 	0X8050   	//GT1151åœ°å€å¯„å­˜å™¨
+#define GT_CHECK_REG 	0X813C   	//GT1151éªŒå’Œå¯„å­˜å™¨
+#define GT_PID_REG 		0X8140   	//GT1151äº§å“IDå¯„å­˜å™¨
 
-#define GT_GSTID_REG 	0X814E   	//GT1151Ç°¼ì²âµ½µÄ´¥ÃþÇé¿ö
-#define GT_TP1_REG 		0X8150  	//µÚÒ»¸ö´¥ÃþµãÊý¾ÝµØÖ·
-#define GT_TP2_REG 		0X8158		//µÚ¶þ¸ö´¥ÃþµãÊý¾ÝµØÖ·
-#define GT_TP3_REG 		0X8160		//µÚÈý¸ö´¥ÃþµãÊý¾ÝµØÖ·
-#define GT_TP4_REG 		0X8168		//µÚËÄ¸ö´¥ÃþµãÊý¾ÝµØÖ·
-#define GT_TP5_REG 		0X8170		//µÚÎå¸ö´¥ÃþµãÊý¾ÝµØÖ·  
+#define GT_GSTID_REG 	0X814E   	//GT1151å‰æ£€æµ‹åˆ°çš„è§¦æ‘¸æƒ…å†µ
+#define GT_TP1_REG 		0X8150  	//ç¬¬ä¸€ä¸ªè§¦æ‘¸ç‚¹æ•°æ®åœ°å€
+#define GT_TP2_REG 		0X8158		//ç¬¬äºŒä¸ªè§¦æ‘¸ç‚¹æ•°æ®åœ°å€
+#define GT_TP3_REG 		0X8160		//ç¬¬ä¸‰ä¸ªè§¦æ‘¸ç‚¹æ•°æ®åœ°å€
+#define GT_TP4_REG 		0X8168		//ç¬¬å››ä¸ªè§¦æ‘¸ç‚¹æ•°æ®åœ°å€
+#define GT_TP5_REG 		0X8170		//ç¬¬äº”ä¸ªè§¦æ‘¸ç‚¹æ•°æ®åœ°å€  
  
-#define TP_PRES_DOWN 0x80  //´¥ÆÁ±»°´ÏÂ	  
-#define TP_CATH_PRES 0x40  //ÓÐ°´¼ü°´ÏÂÁË 
-#define CT_MAX_TOUCH  5    //µçÈÝÆÁÖ§³ÖµÄµãÊý,¹Ì¶¨Îª5µã
-//´¥ÃþÆÁ¿ØÖÆÆ÷
+#define TP_PRES_DOWN 0x80  //è§¦å±è¢«æŒ‰ä¸‹	  
+#define TP_CATH_PRES 0x40  //æœ‰æŒ‰é”®æŒ‰ä¸‹äº† 
+#define CT_MAX_TOUCH  5    //ç”µå®¹å±æ”¯æŒçš„ç‚¹æ•°,å›ºå®šä¸º5ç‚¹
+//è§¦æ‘¸å±æŽ§åˆ¶å™¨
 typedef struct
 {
-//    uint8_t (*init)(void);			//³õÊ¼»¯´¥ÃþÆÁ¿ØÖÆÆ÷
-//    uint8_t (*scan)(uint8_t);				//É¨Ãè´¥ÃþÆÁ.0,ÆÁÄ»É¨Ãè;1,ÎïÀí×ø±ê;	 
-//    void (*adjust)(void);		//´¥ÃþÆÁÐ£×¼ 
-    uint16_t x[CT_MAX_TOUCH]; 		//µ±Ç°×ø±ê
-    uint16_t y[CT_MAX_TOUCH];		//µçÈÝÆÁÓÐ×î¶à5×é×ø±ê,µç×èÆÁÔòÓÃx[0],y[0]´ú±í:´Ë´ÎÉ¨ÃèÊ±,´¥ÆÁµÄ×ø±ê,ÓÃ
-    uint8_t  sta;			//±ÊµÄ×´Ì¬    
+//    uint8_t (*init)(void);			//åˆå§‹åŒ–è§¦æ‘¸å±æŽ§åˆ¶å™¨
+//    uint8_t (*scan)(uint8_t);				//æ‰«æè§¦æ‘¸å±.0,å±å¹•æ‰«æ;1,ç‰©ç†åæ ‡;	 
+//    void (*adjust)(void);		//è§¦æ‘¸å±æ ¡å‡† 
+    uint16_t x[CT_MAX_TOUCH]; 		//å½“å‰åæ ‡
+    uint16_t y[CT_MAX_TOUCH];		//ç”µå®¹å±æœ‰æœ€å¤š5ç»„åæ ‡,ç”µé˜»å±åˆ™ç”¨x[0],y[0]ä»£è¡¨:æ­¤æ¬¡æ‰«ææ—¶,è§¦å±çš„åæ ‡,ç”¨
+    uint8_t  sta;			//ç¬”çš„çŠ¶æ€    
     float xfac;					
     float yfac;
     short xoff;
     short yoff;	   
     uint8_t touchtype;
 }_m_tp_dev;
-extern _m_tp_dev tp_dev;	 	//´¥ÆÁ¿ØÖÆÆ÷ÔÚtouch.cÀïÃæ¶¨Òå
+extern _m_tp_dev tp_dev;	 	//è§¦å±æŽ§åˆ¶å™¨åœ¨touch.cé‡Œé¢å®šä¹‰
 
 
-//IICËùÓÐ²Ù×÷º¯Êý
-void CT_IIC_Init(void);                	//³õÊ¼»¯IICµÄIO¿Ú				 
-void CT_IIC_Start(void);				//·¢ËÍIIC¿ªÊ¼ÐÅºÅ
-void CT_IIC_Stop(void);	  				//·¢ËÍIICÍ£Ö¹ÐÅºÅ
-void CT_IIC_Send_Byte(uint8_t txd);			//IIC·¢ËÍÒ»¸ö×Ö½Ú
-uint8_t CT_IIC_Read_Byte(unsigned char ack);	//IIC¶ÁÈ¡Ò»¸ö×Ö½Ú
-uint8_t CT_IIC_Wait_Ack(void); 				//IICµÈ´ýACKÐÅºÅ
-void CT_IIC_Ack(void);					//IIC·¢ËÍACKÐÅºÅ
-void CT_IIC_NAck(void);					//IIC²»·¢ËÍACKÐÅºÅ
+//IICæ‰€æœ‰æ“ä½œå‡½æ•°
+void CT_IIC_Init(void);                	//åˆå§‹åŒ–IICçš„IOå£				 
+void CT_IIC_Start(void);				//å‘é€IICå¼€å§‹ä¿¡å·
+void CT_IIC_Stop(void);	  				//å‘é€IICåœæ­¢ä¿¡å·
+void CT_IIC_Send_Byte(uint8_t txd);			//IICå‘é€ä¸€ä¸ªå­—èŠ‚
+uint8_t CT_IIC_Read_Byte(unsigned char ack);	//IICè¯»å–ä¸€ä¸ªå­—èŠ‚
+uint8_t CT_IIC_Wait_Ack(void); 				//IICç­‰å¾…ACKä¿¡å·
+void CT_IIC_Ack(void);					//IICå‘é€ACKä¿¡å·
+void CT_IIC_NAck(void);					//IICä¸å‘é€ACKä¿¡å·
  
  
  
@@ -105,20 +105,3 @@ uint8_t GT1151_Scan(uint8_t mode);
 
 
 #endif
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

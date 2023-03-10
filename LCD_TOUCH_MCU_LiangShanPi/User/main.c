@@ -1,7 +1,6 @@
 /*!
 	\file    main.c
 	\brief   led spark with systick
-
 	\version 2016-08-15, V1.0.0, firmware for GD32F4xx
 	\version 2018-12-12, V2.0.0, firmware for GD32F4xx
 	\version 2020-09-30, V2.1.0, firmware for GD32F4xx
@@ -10,10 +9,8 @@
 
 /*
 	Copyright (c) 2022, GigaDevice Semiconductor Inc.
-
 	Redistribution and use in source and binary forms, with or without modification,
 are permitted provided that the following conditions are met:
-
 	1. Redistributions of source code must retain the above copyright notice, this
 	   list of conditions and the following disclaimer.
 	2. Redistributions in binary form must reproduce the above copyright notice,
@@ -22,7 +19,6 @@ are permitted provided that the following conditions are met:
 	3. Neither the name of the copyright holder nor the names of its contributors
 	   may be used to endorse or promote products derived from this software without
 	   specific prior written permission.
-
 	THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"
 AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
 WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED.
@@ -46,9 +42,19 @@ OF SUCH DAMAGE.
 #include "lcd.h"
 #include "touch.h"
 
+#ifdef __GPS__
+#include "bsp_usart.h"
+#define BSP_USART_RCU             RCU_USART0
+#define BSP_USART_TX_RCU          RCU_GPIOA
+#define BSP_USART_RX_RCU          RCU_GPIOA
+void initSerial(){
+    rcu_periph_clock_enable(BSP_USART_RCU); // å¼€å¯ä¸²å£æ—¶é’Ÿ
+    rcu_periph_clock_enable(BSP_USART_TX_RCU); // å¼€å¯ç«¯å£æ—¶é’Ÿ
+    rcu_periph_clock_enable(BSP_USART_RX_RCU); // å¼€å¯ç«¯å£æ—¶é’Ÿ
+}
+#endif
 uint16_t POINT[5]={WHITE,BLUE,RED,YELLOW,GREEN};
 uint16_t BACK[5]={LIGHTGREEN,LIGHTGRAY,LGRAY,LGRAYBLUE,LBBLUE};
-
 /*!
 	\brief    main function
 	\param[in]  none
@@ -68,15 +74,17 @@ int main(void)
     
     printf("start!\r\n");
     
-    /* 8080 mcuÆÁ */
-    LCD_Init(); //ÏÔÊ¾ÆÁ³õÊ¼»¯´úÂë
+    /* 8080 mcuå± */
+    LCD_Init(); //æ˜¾ç¤ºå±åˆå§‹åŒ–ä»£ç 
     POINT_COLOR=POINT[4];
     BACK_COLOR=BACK[4];
     LCD_Clear(BACK[4]);
     LCD_ShowString(30,50,480,80,24,1,"https://lckfb.com");
     LCD_ShowString(30,80,480,110,24,1,lcd_id);
     LCD_ShowString(30,110,480,140,24,1,"touch test....");
-    //´¥ÃþÆÁ
+
+    //è§¦æ‘¸å±
+    
     GT1151_Init();
     
     while(1)
@@ -104,13 +112,13 @@ int main(void)
                 LCD_Fast_DrawPoint(tp_dev.x[t]+1, tp_dev.y[t],POINT_COLOR);
                 LCD_Fast_DrawPoint(tp_dev.x[t], tp_dev.y[t]+1,POINT_COLOR);
                 
-                i=0; //ÖØÐÂ¼ÆÊ±
+                i=0; //é‡æ–°è®¡æ—¶
             }
             else  lastpos[t][0] = 0XFFFF;
         }
         delay_1ms(1);
         
-//        //ÇåÆÁ»»É«
+//        //æ¸…å±æ¢è‰²
 //        if(++i > 800)
 //        {
 //            i=0;
@@ -124,6 +132,6 @@ int main(void)
 //            LCD_ShowString(30,110,480,140,24,1,"touch test....");
 //        }
         
-    }
+    } 
 
 }
