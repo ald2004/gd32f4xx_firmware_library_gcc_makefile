@@ -120,3 +120,4 @@ add_link_options(-T ${LINKER_SCRIPT})
 
 set_target_properties(${PROJECT_NAME}.elf PROPERTIES LINK_FLAGS "-T ${LINKER_SCRIPT}")
 # set_property(SOURCE ${ASM_SOURCES} PROPERTY LANGUAGE ASM)
+add_custom_command(TARGET ${PROJECT_NAME}.elf  POST_BUILD COMMAND scp -P 613 ${PROJECT_NAME}.elf proxy:/mnt/z/)
